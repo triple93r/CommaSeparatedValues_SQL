@@ -1,0 +1,25 @@
+DECLARE @valueList varchar(8000)
+DECLARE @pos INT
+DECLARE @len INT
+DECLARE @value varchar(8000)
+
+SET @valueList = '20001,20002,20005,20007,20003,20009'
+
+--the value list string must end with a comma ','
+--so, if the last comma it's not there, the following IF will add a trailing comma to the value list
+IF @valueList NOT LIKE '%,'
+BEGIN
+    set @valueList = @valueList + ','
+END
+set @pos = 0
+set @len = 0
+
+WHILE CHARINDEX(',', @valueList, @pos+1)>0
+BEGIN
+    set @len = CHARINDEX(',', @valueList, @pos+1) - @pos
+    set @value = SUBSTRING(@valueList, @pos, @len)
+    --SELECT @pos, @len, @value /*this is here for debugging*/
+        
+    select @value
+    set @pos = CHARINDEX(',', @valueList, @pos+@len) +1
+END
