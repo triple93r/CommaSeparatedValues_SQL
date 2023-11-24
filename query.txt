@@ -20,13 +20,12 @@ BEGIN
 	print @value
     set @chk += (select Block_ULb_Name from OLIC_Block_Ulb where SapBlockID = @value) + ','
     set @pos = CHARINDEX(',', @valueList, @pos+@len) +1
-	
 
 	SET @chek = 
     CASE 
         WHEN RIGHT(@chk, 1) = ',' THEN SUBSTRING(@chk, 1, LEN(@chk) - 1)
         ELSE @chk
     END
+END
 
 select @chek
-END
